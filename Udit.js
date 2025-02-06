@@ -28,17 +28,7 @@
         `;
         document.body.appendChild(unhideBox);
 
-        async function sendSelectedTextToAI() {
-            const selectedText = window.getSelection().toString().trim();
-            if (selectedText) {
-                document.getElementById("question").value = selectedText;
-                await fetchAnswerFromAI(selectedText);
-            } else {
-                alert("Please select some text to send to AI.");
-            }
-        }
-
-        // Exposing the fetchAnswerFromAI function globally
+        // Expose the function globally (attach to `window`)
         window.fetchAnswerFromAI = async function(question) {
             const response = document.getElementById("response");
 
@@ -49,7 +39,7 @@
 
             response.innerText = "Fetching answer...";
 
-            const apiKey = "AIzaSyDVGRKlykc6M3tElExlmhwzHnKnmlXwTFc";  // Replace with your API key
+            const apiKey = "AIzaSyDVGRKlykc6M3tElExlmhwzHnKnmlXwTFc";  // Replace with your actual API key
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
             const requestBody = {
